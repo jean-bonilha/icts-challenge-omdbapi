@@ -61,10 +61,10 @@ export class Dashboard extends Component {
             <div className="card corona-gradient-card">
               <div className="card-body py-0 px-0">
                 <div className="row align-items-center">
-                  <div className="col-4">
+                  <div className="col-2">
                     <img src="https://onlinevagas.com/wp-content/uploads/2019/11/Grupo-ICTS.jpg" className="gradient-corona-img img-fluid rounded" alt="banner" />
                   </div>
-                  <div className="col-5 p-0">
+                  <div className="col-7 p-0">
                     <h4 className="mb-1 mb-sm-0">Look for your favorite titles...</h4>
                   </div>
                   <div className="col-3 pl-0 text-center">
