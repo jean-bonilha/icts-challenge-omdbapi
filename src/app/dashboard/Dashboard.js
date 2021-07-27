@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
+import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
 export class Dashboard extends Component {
 
@@ -25,7 +26,21 @@ export class Dashboard extends Component {
                     <h4 className="mb-1 mb-sm-0">Look for your favorite titles...</h4>
                   </div>
                   <div className="col-3 pl-0 text-center">
-                    <input type="text" />
+                    <Form>
+                      <Form.Group as={Col} controlId="validationCustomUsername">
+                        <InputGroup>
+                          <Form.Control
+                            type="text"
+                            placeholder="Search by title..."
+                            aria-describedby="inputGroupPrepend"
+                            required
+                          />
+                          <Button>
+                            Go!
+                          </Button>
+                        </InputGroup>
+                      </Form.Group>
+                    </Form>
                   </div>
                 </div>
               </div>
