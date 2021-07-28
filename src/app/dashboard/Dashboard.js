@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 import VideoList from '../apps/VideoList';
+import { actions } from '../../redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 export class Dashboard extends Component {
 
@@ -11,7 +14,12 @@ export class Dashboard extends Component {
     slidesToScroll: 1
   }
 
+  state = {
+      inputSearch: ''
+  }
+
   render () {
+    const { inputSearch } = this.props;
     return (
       <div>
         <div className="row">
@@ -33,9 +41,11 @@ export class Dashboard extends Component {
                             type="text"
                             placeholder="Search by title..."
                             aria-describedby="inputGroupPrepend"
+                            defaultValue={inputSearch}
+                            onChange={this.changeInputSearch}
                             required
                           />
-                          <Button>
+                          <Button onClick={this.findMovies}>
                             Go!
                           </Button>
                         </InputGroup>
@@ -55,6 +65,23 @@ export class Dashboard extends Component {
       </div> 
     );
   }
+
+  changeInputSearch = event => this.setState({ inputSearch: event.target.value })
+
+  findMovies = event => {
+    const { findMovies } = this.props;
+    const { inputSearch } = this.state;
+    findMovies(inputSearch);
+  }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  videos: state.videosReducer.videos,
+  inputSearch: state.videosReducer.inputSearch
+});
+
+const mapDispatchToProps = dispatch => ({
+  findMovies: bindActionCreators(actions.findMovies, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

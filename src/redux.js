@@ -1,15 +1,26 @@
 import { combineReducers, createStore } from 'redux';
 
+//https://www.omdbapi.com/?apikey=8b816f1c&s=super
+const urlApi = 'https://www.omdbapi.com/?apikey=8b816f1c&s=';
+
 const INITIAL_STATE = {
   videos: [],
   inputSearch: ''
+};
+
+const findMovies = (text) => {
+  fetch(`${urlApi}${text}`)
+    .then(response => response.json())
+    .then(data => data.Search)
+    .then(data => console.log(data));
 };
 
 const videosReducer = (state = INITIAL_STATE, action) => {
   const { payload, type } = action;
   const { videos } = state;
   switch (type) {
-    case 'CHANGE_INPUT_SEARCH':
+    case 'FIND_MOVIES':
+      findMovies(payload);
       return { ...state, inputSearch: payload };
     case 'FILL_VIDEOS':
       return { ...state, videos: [...videos, payload] };
@@ -27,9 +38,9 @@ const reducers = combineReducers({
 const store = createStore(reducers);
 
 const actions = {
-  changeInputSearch: input => ({
+  findMovies: input => ({
     payload: input,
-    type: 'CHANGE_INPUT_SEARCH'
+    type: 'FIND_MOVIES'
   }),
   add: video => ({
     payload: video,
